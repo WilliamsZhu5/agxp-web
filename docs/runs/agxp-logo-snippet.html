@@ -1,0 +1,81 @@
+<!doctype html>
+<!--
+  ============================================================
+  AGXP 字标 logo（wordmark）— 可复用片段
+  ============================================================
+  设计思路：
+  - 纯字母 "AGXP" 几何无衬线字标，统一笔画粗细、单色、克制。
+  - 参照 SpaceX 字标：把 "X" 做成视觉焦点 —— X 被横向拉长（cell 宽度约为
+    其它字母的 2 倍），两条对角线交叉后向右上 / 右下「破框」延伸出尖角，
+    形成 SpaceX 式向右扫掠的速度感，并把视线引向相邻的 P。
+  - 全部用 SVG <path> 手绘字形，stroke="currentColor"，可无限缩放、永远锐利。
+
+  用 SVG 还是 CSS：SVG（内联 <path>），因为只有手绘路径才能精确控制
+  拉长的 X 与延伸尖角，CSS 字体做不到这种字形定制。
+
+  ① HTML / SVG 代码：见下方 <a class="agxp-logo"> 块。
+  ② 配套 CSS：见 <style> 块。
+  ③ 使用说明：
+     - 直接把 <a class="agxp-logo">…</a> 粘进导航；把 .agxp-logo 的 CSS 并入页面。
+     - 单色靠 stroke="currentColor"：logo 颜色 = 父元素 color。
+       · 浅背景导航：给 .agxp-logo 设 color:#111110（深墨色）即可。
+       · 深背景导航：把 color 改成 #f5f4f0 / #fff（浅色）即可，同一份 SVG 自动适配。
+     - 调大小：改 .agxp-logo svg 的 height（导航建议 24–30px），宽度自动按比例。
+  ============================================================
+-->
+<meta charset="utf-8">
+<style>
+  /* —— AGXP 字标配套 CSS —— */
+  .agxp-logo{
+    display:inline-flex;align-items:center;
+    color:#111110;                 /* 单色入口：深背景改为 #f5f4f0 / #fff */
+    text-decoration:none;
+    line-height:0;                 /* 去掉行内 SVG 底部空隙 */
+  }
+  .agxp-logo svg{
+    height:26px;width:auto;        /* 导航尺寸；按需 24–30px */
+    display:block;overflow:visible;/* 让拉长 X 的延伸尖角不被裁切 */
+  }
+  /* hover 时整体提亮到品牌橘（可选，去掉则保持纯单色） */
+  .agxp-logo:hover{color:#e8450a}
+  .agxp-logo svg path{transition:.2s}
+
+  /* —— 下面仅为本预览页排版，复用时不需要 —— */
+  body{margin:0;font-family:Inter,system-ui,sans-serif}
+  .demo{padding:48px 56px;display:flex;align-items:center;gap:40px}
+  .light{background:#f5f4f0}
+  .dark{background:#111110}
+  .dark .agxp-logo{color:#f5f4f0}
+  .scale-big svg{height:120px}
+</style>
+
+<!-- ===================== ① HTML / SVG 字标 ===================== -->
+<!-- viewBox 0 0 300 100；stroke 统一 8；butt 端 + miter 角 = 几何锐利 -->
+<a href="#top" class="agxp-logo" aria-label="AGXP">
+  <svg viewBox="0 0 300 100" fill="none" stroke="currentColor"
+       stroke-width="8" stroke-linecap="butt" stroke-linejoin="miter"
+       role="img" aria-label="AGXP">
+    <!-- A -->
+    <path d="M6 88 L28 12 L50 88 M13 64 H43"/>
+    <!-- G：近全椭圆开口在右 + 内嵌横向 spur -->
+    <path d="M111 27 A24 38 0 1 0 111 73 L111 50 L90 50"/>
+    <!-- X：横向拉长 + 对角线破框右扫延伸（视觉焦点） -->
+    <path d="M126 4  L232 96"/>
+    <path d="M232 4  L126 96"/>
+    <!-- P -->
+    <path d="M250 12 L250 88 M250 12 H272 A16 20 0 0 1 272 52 H250"/>
+  </svg>
+</a>
+
+<!-- ===================== 预览：浅 / 深 / 放大 ===================== -->
+<div class="demo light">
+  <a href="#" class="agxp-logo"><svg viewBox="0 0 300 100" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="miter"><path d="M6 88 L28 12 L50 88 M13 64 H43"/><path d="M111 27 A24 38 0 1 0 111 73 L111 50 L90 50"/><path d="M126 4 L232 96"/><path d="M232 4 L126 96"/><path d="M250 12 L250 88 M250 12 H272 A16 20 0 0 1 272 52 H250"/></svg></a>
+  <span style="color:#787670;font-size:13px">浅背景（color:#111110）</span>
+</div>
+<div class="demo dark">
+  <a href="#" class="agxp-logo"><svg viewBox="0 0 300 100" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="miter"><path d="M6 88 L28 12 L50 88 M13 64 H43"/><path d="M111 27 A24 38 0 1 0 111 73 L111 50 L90 50"/><path d="M126 4 L232 96"/><path d="M232 4 L126 96"/><path d="M250 12 L250 88 M250 12 H272 A16 20 0 0 1 272 52 H250"/></svg></a>
+  <span style="color:#a09c94;font-size:13px">深背景（color:#f5f4f0）</span>
+</div>
+<div class="demo light scale-big">
+  <a href="#" class="agxp-logo"><svg viewBox="0 0 300 100" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="miter"><path d="M6 88 L28 12 L50 88 M13 64 H43"/><path d="M111 27 A24 38 0 1 0 111 73 L111 50 L90 50"/><path d="M126 4 L232 96"/><path d="M232 4 L126 96"/><path d="M250 12 L250 88 M250 12 H272 A16 20 0 0 1 272 52 H250"/></svg></a>
+</div>
