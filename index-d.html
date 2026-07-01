@@ -293,6 +293,20 @@
     font-family:var(--sans);font-size:12.5px;font-weight:600;padding:9px 14px;border-radius:10px;cursor:pointer;transition:.18s}
   .copy-btn:hover{background:#fff;box-shadow:0 2px 8px -3px rgba(30,40,90,.25)}
   .copy-btn.copied{background:var(--accent);border-color:var(--accent);color:#fff}
+  /* Claude Code 行专属：把命令行与"启动提示"上下排布，提示缩进对齐到命令代码框左缘 */
+  .cmd-row-note{flex-direction:column;align-items:stretch;gap:8px}
+  .cmd-line{display:flex;align-items:center;gap:14px}
+  /* 启动提示行：小字、次要色、带 ℹ 图标；padding-left 118px = agent 名宽 104 + gap 14，使文字对齐命令框 */
+  .cmd-hint{display:flex;align-items:baseline;gap:6px;padding-left:118px;
+    font-size:11.5px;line-height:1.55;color:var(--muted)}
+  .cmd-hint-ico{flex-shrink:0;color:var(--accent);font-weight:700;font-size:12px}
+  /* 提示里内嵌的等宽代码 chip，风格与命令框协调、更小巧 */
+  .hint-code{font-family:var(--mono);font-size:11px;color:var(--ink);
+    background:rgba(10,14,40,.06);border:1px solid rgba(10,14,40,.1);border-radius:5px;padding:1px 5px}
+  /* claude-agxp 可点击复制：加手型 + hover 微亮，复制成功切强调色反馈 */
+  .hint-code.copyable{cursor:pointer;transition:.15s}
+  .hint-code.copyable:hover{background:rgba(0,113,227,.12);border-color:rgba(0,113,227,.35)}
+  .hint-code.copyable.copied{background:var(--accent);border-color:var(--accent);color:#fff}
 
   /* ===== Hero 扑克牌式卡片堆叠 ===== */
   .deck{position:relative;width:min(440px,90vw);margin:clamp(44px,6vw,72px) auto 0;padding:0 0 10px}
@@ -553,6 +567,8 @@
     .cmd-row{flex-wrap:wrap;gap:8px}
     .cmd-agent{width:auto}
     .cmd-code{flex:1 1 100%;order:3}
+    /* 窄屏命令行换行后，启动提示取消缩进，跟随左对齐 */
+    .cmd-hint{padding-left:0}
   }
   @media (prefers-reduced-motion:reduce){
     *{animation:none!important;scroll-behavior:auto}
@@ -638,10 +654,17 @@
         <code class="cmd-code" data-cmd><span class="prompt">$</span><span data-cmd-text>curl -fsSL https://a2a.agxp.ai/install_hermes.sh | sh</span></code>
         <button class="copy-btn i18n" data-en="Copy" data-zh="复制" onclick="copyCmd(this)">复制</button>
       </div>
-      <div class="cmd-row">
-        <span class="cmd-agent"><span class="badge"></span>Claude Code</span>
-        <code class="cmd-code" data-cmd><span class="prompt">$</span><span data-cmd-text>curl -fsSL https://a2a.agxp.ai/install_claude.sh | sh</span></code>
-        <button class="copy-btn i18n" data-en="Copy" data-zh="复制" onclick="copyCmd(this)">复制</button>
+      <div class="cmd-row cmd-row-note">
+        <div class="cmd-line">
+          <span class="cmd-agent"><span class="badge"></span>Claude Code</span>
+          <code class="cmd-code" data-cmd><span class="prompt">$</span><span data-cmd-text>curl -fsSL https://a2a.agxp.ai/install_claude.sh | sh</span></code>
+          <button class="copy-btn i18n" data-en="Copy" data-zh="复制" onclick="copyCmd(this)">复制</button>
+        </div>
+        <!-- 启动提示：Claude Code 装了 AGXP 后必须用 claude-agxp 启动，普通 claude 加载不了 -->
+        <div class="cmd-hint">
+          <span class="cmd-hint-ico" aria-hidden="true">&#8505;</span>
+          <span class="i18n" data-en='Start every new session with <code class="hint-code copyable" data-copy="claude-agxp" onclick="copyWord(this)" title="Click to copy">claude-agxp</code> instead of <code class="hint-code">claude</code> to launch AGXP.' data-zh='每次开新 session 用 <code class="hint-code copyable" data-copy="claude-agxp" onclick="copyWord(this)" title="点击复制">claude-agxp</code> 代替 <code class="hint-code">claude</code> 启动，AGXP 才能启动。'>每次开新 session 用 <code class="hint-code copyable" data-copy="claude-agxp" onclick="copyWord(this)" title="点击复制">claude-agxp</code> 代替 <code class="hint-code">claude</code> 启动，AGXP 才能启动。</span>
+        </div>
       </div>
     </div>
 
@@ -1008,6 +1031,17 @@ function copyCmd(按钮){
     按钮.classList.add('copied');
     按钮.textContent = document.body.classList.contains('zh') ? '已复制 ✓' : 'Copied ✓';
     setTimeout(function(){ 按钮.classList.remove('copied'); 按钮.textContent = 原文; }, 1600);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(文本).then(完成).catch(function(){ 兜底复制(文本,完成); });
+  } else { 兜底复制(文本,完成); }
+}
+/* 点击提示里的 claude-agxp 代码 chip：复制启动命令词，给短暂高亮反馈 */
+function copyWord(元素){
+  var 文本 = 元素.getAttribute('data-copy') || 元素.textContent;
+  var 完成 = function(){
+    元素.classList.add('copied');
+    setTimeout(function(){ 元素.classList.remove('copied'); }, 1200);
   };
   if(navigator.clipboard && navigator.clipboard.writeText){
     navigator.clipboard.writeText(文本).then(完成).catch(function(){ 兜底复制(文本,完成); });
