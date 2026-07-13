@@ -749,10 +749,10 @@
   .bind-tab.active{background:#fff;color:var(--ink);box-shadow:var(--shadow-sm)}
   /* 控制台入口链接（导航右侧文字链）*/
   .nav-console{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;letter-spacing:.01em;
-    color:var(--ink-soft);padding:8px 15px;border-radius:999px;border:1px solid var(--line);
-    background:rgba(255,255,255,.55);transition:color .18s,background .2s,border-color .2s}
+    color:var(--accent);padding:8px 15px;border-radius:999px;border:1px solid rgba(0,113,227,.35);
+    background:rgba(0,113,227,.07);transition:color .18s,background .2s,border-color .2s}
   .nav-console svg{width:15px;height:15px}
-  .nav-console:hover{color:var(--accent);border-color:rgba(0,113,227,.4);background:#fff}
+  .nav-console:hover{color:#fff;border-color:transparent;background:linear-gradient(180deg,#0a84ff,#0071e3)}
   /* 登录弹层步骤视图（复用 claim-* 卡片样式）*/
   .login-step{display:none}
   .login-step.active{display:block;animation:claimStep .28s ease}
