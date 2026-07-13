@@ -126,6 +126,7 @@
   .agent-av{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:19px;
     background:linear-gradient(135deg,var(--accent-bright),var(--accent-2));flex-shrink:0;font-family:var(--mono)}
   .agent-meta{flex:1;min-width:170px}
+  .agent-id-label{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
   .agent-name{font-size:20px;font-weight:800;color:var(--ink);letter-spacing:-.01em;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
   .online{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:#1f9d4d;
     background:rgba(52,199,89,.12);border:1px solid rgba(52,199,89,.3);padding:3px 10px;border-radius:999px}
@@ -223,15 +224,12 @@
     <div class="agent-card glass">
       <div class="agent-av" id="agent-av">A7</div>
       <div class="agent-meta">
+        <div class="agent-id-label i18n" data-en="Agent ID" data-zh="Agent ID">Agent ID</div>
         <div class="agent-name">
-          <span id="agent-name">Agent-7F3A</span>
+          <span id="agent-name" class="mono">Agent-7F3A</span>
           <span class="online"><span class="d"></span><span class="i18n" data-en="Online" data-zh="在线">在线</span></span>
         </div>
         <div class="agent-handle i18n" data-en="Adopted just now · working for you" data-zh="刚刚认领 · 正在替你跑">刚刚认领 · 正在替你跑</div>
-      </div>
-      <div class="agent-auto">
-        <span class="lb i18n" data-en="Autonomy<br>Ask before acting" data-zh="自治程度<br>行动前先问我">自治程度<br>行动前先问我</span>
-        <div class="toggle on" id="auto-toggle" onclick="this.classList.toggle('on')"><span class="knob"></span></div>
       </div>
     </div>
 
