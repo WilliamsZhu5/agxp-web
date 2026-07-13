@@ -747,6 +747,13 @@
   .bind-tab{border:0;background:transparent;cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:600;
     color:var(--ink-soft);padding:8px 22px;border-radius:999px;transition:.2s}
   .bind-tab.active{background:#fff;color:var(--ink);box-shadow:var(--shadow-sm)}
+  /* 控制台入口链接（导航右侧文字链）*/
+  .nav-console{display:inline-flex;align-items:center;font-size:13.5px;font-weight:500;letter-spacing:.01em;
+    color:var(--ink-soft);padding:8px 14px;border-radius:999px;transition:color .18s,background .25s}
+  .nav-console:hover{color:var(--ink);background:rgba(255,255,255,.55)}
+  /* 登录弹层步骤视图（复用 claim-* 卡片样式）*/
+  .login-step{display:none}
+  .login-step.active{display:block;animation:claimStep .28s ease}
 
   /* ============================================================
      去 AI 味 polish（覆盖层）：弱化玻璃/渐变/动效，收紧层次留白。
@@ -799,6 +806,7 @@
       <a href="#trust" class="i18n" data-en="Security" data-zh="安全">Security</a>
     </nav>
     <div class="nav-right">
+      <a href="#" class="nav-console i18n" data-en="Console" data-zh="控制台" onclick="openLogin(event)">控制台</a>
       <div class="lang-toggle zh-active" role="group" aria-label="Language">
         <span class="lang-thumb" aria-hidden="true"></span>
         <button id="lang-en" onclick="setLang('en')">EN</button>
@@ -1181,6 +1189,49 @@
       <div class="claim-desc i18n" data-en="This agent is now yours — online and ready." data-zh="这个 agent 现在归你了，已上线待命。">这个 agent 现在归你了，已上线待命。</div>
       <div class="claim-agent-chip"><span class="d"></span><span id="claim-agent-name">Agent-7F3A</span></div>
       <a class="btn btn-dark claim-btn-full i18n" href="dashboard.html" data-en="Enter dashboard" data-zh="进入监控台" onclick="saveClaimedAgent()">进入监控台</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 控制台登录弹层（邮箱 → 验证码，纯前端演示）============ -->
+<div class="claim-overlay" id="login-overlay" onclick="loginOverlayClick(event)">
+  <div class="claim-card">
+    <button class="claim-close" onclick="closeLogin()" aria-label="close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <!-- 两步指示 -->
+    <div class="claim-steps" id="login-steps">
+      <span class="dot on cur" data-lstep="1"></span><span class="dot" data-lstep="2"></span>
+    </div>
+
+    <!-- 步骤 ① 输入邮箱 -->
+    <div class="login-step active" data-lstep="1">
+      <div class="claim-ic-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M4 7l8 6 8-6"/></svg>
+      </div>
+      <div class="claim-title i18n" data-en="Log in to your console" data-zh="登录控制台">登录控制台</div>
+      <div class="claim-desc i18n" data-en="Enter your email — we'll send you a verification code." data-zh="输入邮箱，我们给你发一个验证码。">输入邮箱，我们给你发一个验证码。</div>
+      <div class="claim-field">
+        <label class="claim-label i18n" for="login-email" data-en="Email" data-zh="邮箱">邮箱</label>
+        <input class="claim-input" type="email" id="login-email" autocomplete="email" placeholder="you@example.com" />
+      </div>
+      <a class="btn btn-dark claim-btn-full i18n" data-en="Send code" data-zh="发送验证码" onclick="loginGo(2)">发送验证码</a>
+    </div>
+
+    <!-- 步骤 ② 输入验证码 -->
+    <div class="login-step" data-lstep="2">
+      <div class="claim-ic-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+      </div>
+      <div class="claim-title i18n" data-en="Enter the code" data-zh="输入验证码">输入验证码</div>
+      <div class="claim-desc"><span class="i18n" data-en="Code sent to " data-zh="验证码已发送至 ">验证码已发送至 </span><span id="login-email-echo" class="mono">你的邮箱</span></div>
+      <div class="claim-field">
+        <label class="claim-label i18n" for="login-code" data-en="Verification code" data-zh="验证码">验证码</label>
+        <input class="claim-input mono" type="text" id="login-code" inputmode="numeric" maxlength="6" placeholder="6 位数字" style="letter-spacing:.4em;text-align:center;font-size:18px" />
+      </div>
+      <div class="claim-hint-sm i18n" data-en="Demo only — any 6 digits will log you in." data-zh="演示占位：任意 6 位数字即可登录。">演示占位：任意 6 位数字即可登录。</div>
+      <a class="btn btn-dark claim-btn-full i18n" href="dashboard.html" data-en="Log in" data-zh="登录">登录</a>
+      <span class="claim-back i18n" data-en="← Change email" data-zh="← 换邮箱" onclick="loginGo(1)">← 换邮箱</span>
     </div>
   </div>
 </div>
@@ -1662,7 +1713,7 @@ function claimGo(步){
   document.querySelectorAll('.claim-step').forEach(function(el){
     el.classList.toggle('active', el.getAttribute('data-step') === String(步));
   });
-  document.querySelectorAll('.claim-steps .dot').forEach(function(el){
+  document.querySelectorAll('#claim-steps .dot').forEach(function(el){
     var n = +el.getAttribute('data-step');
     el.classList.toggle('on', n <= 步);   // 已完成 + 当前：实心蓝
     el.classList.toggle('cur', n === 步);  // 仅当前：拉长药丸
@@ -1678,9 +1729,39 @@ function 随机agent名(){
 function saveClaimedAgent(){
   try{ localStorage.setItem('agxp_agent', document.getElementById('claim-agent-name').textContent); }catch(e){}
 }
-/* Esc 关闭弹层 */
+/* ===== 控制台登录弹层（邮箱 → 验证码，纯前端演示，无真实发信/校验）===== */
+function openLogin(事件){
+  if(事件) 事件.preventDefault();
+  loginGo(1);
+  document.getElementById('login-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLogin(){
+  document.getElementById('login-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function loginOverlayClick(事件){
+  if(事件.target && 事件.target.id === 'login-overlay') closeLogin();
+}
+/* 切换登录步骤（1 邮箱 / 2 验证码）；进入第 2 步时回显所填邮箱 */
+function loginGo(步){
+  document.querySelectorAll('.login-step').forEach(function(el){
+    el.classList.toggle('active', el.getAttribute('data-lstep') === String(步));
+  });
+  document.querySelectorAll('#login-steps .dot').forEach(function(el){
+    var n = +el.getAttribute('data-lstep');
+    el.classList.toggle('on', n <= 步);
+    el.classList.toggle('cur', n === 步);
+  });
+  if(步 === 2){
+    var 邮箱 = (document.getElementById('login-email').value || '').trim() || '你的邮箱';
+    var 回显 = document.getElementById('login-email-echo');
+    if(回显) 回显.textContent = 邮箱;
+  }
+}
+/* Esc 关闭任一打开的弹层 */
 document.addEventListener('keydown', function(事件){
-  if(事件.key === 'Escape') closeClaim();
+  if(事件.key === 'Escape'){ closeClaim(); closeLogin(); }
 });
 </script>
 </body>
