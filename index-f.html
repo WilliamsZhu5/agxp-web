@@ -688,10 +688,14 @@
   @media (max-width:420px){.stat-num{font-size:clamp(24px,8vw,32px)}.stat-row{gap:16px}}
   /* ===== 认领 agent 弹层（3 步：邮箱注册 → 微信扫码 → 认领成功）=====
      复用页面白玻璃质感（box-shadow 主导）+ 经典蓝强调；图标全部内联 SVG，无 emoji。 */
+  /* 蒙层：纯半透明遮罩，不用 backdrop-filter（全屏模糊 + 背景动画会严重卡顿）*/
   .claim-overlay{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:24px;
-    background:rgba(14,18,32,.36);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
-  .claim-overlay.open{display:flex;animation:claimFade .25s ease}
+    background:rgba(16,20,34,.5)}
+  .claim-overlay.open{display:flex;animation:claimFade .2s ease}
   @keyframes claimFade{from{opacity:0}to{opacity:1}}
+  /* 弹层打开时暂停背景所有动画，交互丝滑（body.modal-open 由 JS 切换）*/
+  body.modal-open .sig-track,
+  body.modal-open .marquee-track{animation-play-state:paused!important}
   .claim-card{position:relative;width:min(430px,100%);border-radius:var(--r-md);padding:36px 30px 30px;text-align:center;
     background:
       radial-gradient(60% 46% at 26% 12%,rgba(255,255,255,.99),rgba(255,255,255,0) 60%),
@@ -1462,6 +1466,7 @@ window.addEventListener('resize', function(){
 
   var 上次 = {};
   function 帧(){
+    if(document.body.classList.contains('modal-open')){ requestAnimationFrame(帧); return; } // 弹层打开时不写 DOM
     Object.keys(指标).forEach(function(键){
       var m = 指标[键];
       m.cur += (m.tgt - m.cur) * 0.14; // 指数缓动逼近，平滑不硬跳
@@ -1729,6 +1734,7 @@ function openClaim(事件){
   claimGo(1);
   document.getElementById('claim-overlay').classList.add('open');
   document.body.style.overflow = 'hidden'; // 锁背景滚动
+  document.body.classList.add('modal-open'); // 暂停背景动画，交互不卡
 }
 /* 切换绑定方式（微信 / 飞书），更新 tab 高亮与二维码下方标签文案 */
 function switchBind(方式){
@@ -1747,6 +1753,7 @@ function switchBind(方式){
 function closeClaim(){
   document.getElementById('claim-overlay').classList.remove('open');
   document.body.style.overflow = '';
+  document.body.classList.remove('modal-open');
 }
 /* 点击蒙层空白处（非卡片）关闭 */
 function claimOverlayClick(事件){
@@ -1775,10 +1782,12 @@ function openLogin(事件){
   loginGo(1);
   document.getElementById('login-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
+  document.body.classList.add('modal-open');
 }
 function closeLogin(){
   document.getElementById('login-overlay').classList.remove('open');
   document.body.style.overflow = '';
+  document.body.classList.remove('modal-open');
 }
 function loginOverlayClick(事件){
   if(事件.target && 事件.target.id === 'login-overlay') closeLogin();
