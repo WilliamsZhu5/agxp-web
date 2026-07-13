@@ -809,9 +809,39 @@
   .claim-hint-sm,.claim-back{text-align:left}
   /* 按钮扁平化：实色经典蓝，去糖果渐变 + 去发光 + 去毛玻璃 */
   .claim-btn-full{margin-top:22px;padding:14px}
-  .claim-card .btn-dark{background:var(--accent);border:1px solid var(--accent);box-shadow:none;
-    -webkit-backdrop-filter:none;backdrop-filter:none}
-  .claim-card .btn-dark:hover{background:#005ec4;transform:none}
+
+  /* ============================================================
+     质感回归：液体玻璃主按钮 + 有层次的背景（去"纯白 = 廉价 AI 感"）
+     ============================================================ */
+  /* 主按钮：真·液体玻璃——半透明蓝 + backdrop 背景模糊 + 顶部镜面高光(::after)
+     + 底部立体内影 + 经典蓝外发光；温润有厚度、有反光。 */
+  .btn-dark{position:relative;color:#fff;
+    background:linear-gradient(180deg,rgba(72,162,255,.92),rgba(0,108,228,.96));
+    -webkit-backdrop-filter:blur(12px) saturate(1.8);backdrop-filter:blur(12px) saturate(1.8);
+    border:1px solid rgba(255,255,255,.34);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.62),
+      inset 0 -12px 22px rgba(0,46,118,.32),
+      0 6px 16px rgba(0,92,214,.34),
+      0 18px 40px rgba(0,92,214,.22)}
+  /* 顶部镜面高光：上半段一层白到透明的渐变，模拟玻璃反光 */
+  .btn-dark::after{content:"";position:absolute;left:0;right:0;top:0;height:52%;pointer-events:none;
+    border-top-left-radius:inherit;border-top-right-radius:inherit;
+    background:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,0))}
+  .btn-dark:hover{transform:translateY(-1px);
+    background:linear-gradient(180deg,rgba(84,172,255,.94),rgba(0,116,236,.98));
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.68),
+      inset 0 -12px 22px rgba(0,46,118,.34),
+      0 8px 20px rgba(0,92,214,.42),
+      0 22px 48px rgba(0,92,214,.26)}
+  /* 背景：去纯白，换成带极淡冷调光晕 + 轻微冷白渐变的层次画布，玻璃有东西可透 */
+  .bg-mesh{background:
+    radial-gradient(52% 46% at 82% 2%,rgba(0,113,227,.13),transparent 66%),
+    radial-gradient(48% 44% at 6% 14%,rgba(88,112,156,.10),transparent 68%),
+    radial-gradient(54% 50% at 94% 90%,rgba(0,113,227,.10),transparent 68%),
+    radial-gradient(48% 48% at 16% 100%,rgba(88,110,150,.08),transparent 70%),
+    linear-gradient(180deg,#fbfcff 0%,#edf1f9 100%)}
 </style>
 </head>
 <body class="zh">
@@ -1212,8 +1242,7 @@
       </div>
       <div class="claim-title i18n" data-en="Claimed" data-zh="认领成功">认领成功</div>
       <div class="claim-desc i18n" data-en="This agent is now yours — online and ready." data-zh="这个 agent 现在归你了，已上线待命。">这个 agent 现在归你了，已上线待命。</div>
-      <div class="claim-agent-chip"><span class="d"></span><span id="claim-agent-name">Agent-7F3A</span></div>
-      <a class="btn btn-dark claim-btn-full i18n" href="dashboard.html" data-en="Enter dashboard" data-zh="进入监控台" onclick="saveClaimedAgent()">进入监控台</a>
+      <a class="btn btn-dark claim-btn-full i18n" href="dashboard.html" data-en="Enter dashboard" data-zh="进入监控台">进入监控台</a>
     </div>
   </div>
 </div>
@@ -1706,7 +1735,6 @@ var 当前绑定 = 'wechat';
 /* 打开弹层：随机生成一个 agent 名，回到第 ① 步（邮箱注册）*/
 function openClaim(事件){
   if(事件) 事件.preventDefault();
-  document.getElementById('claim-agent-name').textContent = 随机agent名();
   claimGo(1);
   document.getElementById('claim-overlay').classList.add('open');
   document.body.style.overflow = 'hidden'; // 锁背景滚动
@@ -1749,10 +1777,6 @@ function 随机agent名(){
   var 字符 = '0123456789ABCDEF', 结果 = '';
   for(var i=0;i<4;i++) 结果 += 字符.charAt(Math.floor(Math.random()*16));
   return 'Agent-' + 结果;
-}
-/* 进入监控台前，把认领到的 agent 名存本地，dashboard 读取展示（前端演示态）*/
-function saveClaimedAgent(){
-  try{ localStorage.setItem('agxp_agent', document.getElementById('claim-agent-name').textContent); }catch(e){}
 }
 /* ===== 控制台登录弹层（邮箱 → 验证码，纯前端演示，无真实发信/校验）===== */
 function openLogin(事件){
