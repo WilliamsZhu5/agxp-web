@@ -55,7 +55,7 @@
       inset 0 1px 2px rgba(255,255,255,1),
       inset 0 -1px 2px rgba(20,30,60,.04);
     --maxw:1120px;
-    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --sans:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Inter','Segoe UI',sans-serif;
     --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -769,7 +769,8 @@
   }
   /* 2) 卡片去"液态玻璃"：近实白 + 一根干净细边 + 收敛阴影；去掉镜面高光/流光/玻璃描边 */
   .glass-real,.glass-lite{
-    background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
+    background:#fff;border:1px solid rgba(0,0,0,.055);
+    box-shadow:0 1px 2px rgba(0,0,0,.035),0 10px 30px rgba(0,0,0,.06)}
   .glass-real::before,.glass-lite::before{display:none!important}
   .glass-real.sheen::after{display:none!important}
   .pill{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
@@ -836,12 +837,8 @@
       0 8px 20px rgba(0,92,214,.42),
       0 22px 48px rgba(0,92,214,.26)}
   /* 背景：去纯白，换成带极淡冷调光晕 + 轻微冷白渐变的层次画布，玻璃有东西可透 */
-  .bg-mesh{background:
-    radial-gradient(52% 46% at 82% 2%,rgba(0,113,227,.13),transparent 66%),
-    radial-gradient(48% 44% at 6% 14%,rgba(88,112,156,.10),transparent 68%),
-    radial-gradient(54% 50% at 94% 90%,rgba(0,113,227,.10),transparent 68%),
-    radial-gradient(48% 48% at 16% 100%,rgba(88,110,150,.08),transparent 70%),
-    linear-gradient(180deg,#fbfcff 0%,#edf1f9 100%)}
+  .bg-mesh{background:linear-gradient(180deg,#ffffff 0%,#f5f5f7 55%,#f0f0f3 100%)}
+  .bg-grid{display:none!important}
 </style>
 </head>
 <body class="zh">
