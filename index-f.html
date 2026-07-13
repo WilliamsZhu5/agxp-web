@@ -784,6 +784,32 @@
   .bg-grid{opacity:.5}
   /* 5) 终点 CTA 去发光装饰 */
   .cta-glow{display:none!important}
+
+  /* ============================================================
+     弹层审美精修：去"AI 模板脸"——干净白卡 + 去彩色图标块 +
+     左对齐编辑化排版 + 细段条进度 + 扁平实色按钮。删本块即回退。
+     ============================================================ */
+  .claim-card{background:#fff;border:1px solid var(--line);text-align:left;padding:32px 30px 28px;
+    box-shadow:0 1px 2px rgba(20,30,60,.04),0 20px 50px rgba(20,30,60,.14)}
+  /* 去掉彩色渐变圆角图标块（各步通用），成功页单独保留一个克制的对勾圆 */
+  .claim-ic-wrap{display:none}
+  .claim-step[data-step="3"] .claim-ic-wrap{display:grid;width:44px;height:44px;border-radius:50%;
+    background:rgba(52,199,89,.12);color:#1f9d4d;box-shadow:none;margin:0 0 16px}
+  .claim-step[data-step="3"] .claim-ic-wrap svg{width:22px;height:22px}
+  /* 进度：圆点 → 细段条（左对齐、扁平）*/
+  .claim-steps{justify-content:flex-start;gap:6px;margin-bottom:24px}
+  .claim-steps .dot{width:22px;height:3px;border-radius:2px;background:rgba(10,14,40,.1);box-shadow:none}
+  .claim-steps .dot.on{background:var(--accent)}
+  .claim-steps .dot.cur{width:22px}
+  /* 标题/正文左对齐、层次更克制 */
+  .claim-title{font-size:22px;letter-spacing:-.025em}
+  .claim-desc{margin:10px 0 0;max-width:none}
+  .claim-hint-sm,.claim-back{text-align:left}
+  /* 按钮扁平化：实色经典蓝，去糖果渐变 + 去发光 + 去毛玻璃 */
+  .claim-btn-full{margin-top:22px;padding:14px}
+  .claim-card .btn-dark{background:var(--accent);border:1px solid var(--accent);box-shadow:none;
+    -webkit-backdrop-filter:none;backdrop-filter:none}
+  .claim-card .btn-dark:hover{background:#005ec4;transform:none}
 </style>
 </head>
 <body class="zh">
