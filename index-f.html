@@ -748,6 +748,9 @@
     color:var(--ink-soft);padding:8px 22px;border-radius:999px;transition:.2s}
   .bind-tab.active{background:#fff;color:var(--ink);box-shadow:var(--shadow-sm)}
   /* 控制台入口链接（导航右侧文字链）*/
+  .nav-guide{display:inline-flex;align-items:center;font-size:13.5px;font-weight:500;letter-spacing:.01em;
+    color:var(--ink-soft);padding:8px 12px;border-radius:999px;transition:color .18s,background .25s}
+  .nav-guide:hover{color:var(--ink);background:rgba(255,255,255,.55)}
   .nav-console{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;letter-spacing:.01em;
     color:var(--accent);padding:8px 15px;border-radius:999px;border:1px solid rgba(0,113,227,.35);
     background:rgba(0,113,227,.07);transition:color .18s,background .2s,border-color .2s}
@@ -846,6 +849,7 @@
   <div class="wrap nav">
     <a href="#top" class="agxp-logo" aria-label="AGXP">AGXP</a>
     <div class="nav-right">
+      <a href="https://agxp.mintlify.site/introduction" target="_blank" rel="noopener" class="nav-guide i18n" data-en="Guide" data-zh="介绍">介绍</a>
       <a href="#" class="nav-console" onclick="openLogin(event)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
         <span class="i18n" data-en="Console" data-zh="控制台">控制台</span>
