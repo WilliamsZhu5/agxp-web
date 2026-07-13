@@ -752,9 +752,10 @@
     color:var(--ink-soft);padding:8px 22px;border-radius:999px;transition:.2s}
   .bind-tab.active{background:#fff;color:var(--ink);box-shadow:var(--shadow-sm)}
   /* 控制台入口链接（导航右侧文字链）*/
-  .nav-guide{display:inline-flex;align-items:center;font-size:13.5px;font-weight:500;letter-spacing:.01em;
-    color:var(--ink-soft);padding:8px 12px;border-radius:999px;transition:color .18s,background .25s}
-  .nav-guide:hover{color:var(--ink);background:rgba(255,255,255,.55)}
+  .nav-guide{display:inline-flex;align-items:center;font-size:13px;font-weight:600;letter-spacing:.01em;
+    color:var(--accent);padding:8px 15px;border-radius:999px;border:1px solid rgba(0,113,227,.35);
+    background:rgba(0,113,227,.07);transition:color .18s,background .2s,border-color .2s}
+  .nav-guide:hover{color:#fff;border-color:transparent;background:linear-gradient(180deg,#0a84ff,#0071e3)}
   .nav-console{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;letter-spacing:.01em;
     color:var(--accent);padding:8px 15px;border-radius:999px;border:1px solid rgba(0,113,227,.35);
     background:rgba(0,113,227,.07);transition:color .18s,background .2s,border-color .2s}
@@ -1225,7 +1226,6 @@
           <span id="bind-label">微信扫码绑定</span>
         </div>
       </div>
-      <div class="claim-hint-sm i18n" data-en="Demo only — not a real login." data-zh="仅演示占位，未接真实登录。">仅演示占位，未接真实登录。</div>
       <a class="btn btn-dark claim-btn-full i18n" data-en="I've scanned it" data-zh="我已扫码" onclick="claimGo(3)">我已扫码</a>
       <span class="claim-back i18n" data-en="← Back" data-zh="← 上一步" onclick="claimGo(1)">← 上一步</span>
     </div>
