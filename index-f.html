@@ -816,26 +816,16 @@
      ============================================================ */
   /* 主按钮：真·液体玻璃——半透明蓝 + backdrop 背景模糊 + 顶部镜面高光(::after)
      + 底部立体内影 + 经典蓝外发光；温润有厚度、有反光。 */
+  /* 主按钮：与右上角中英切换滑块同款实色蓝（#0a84ff→#0071e3），干净一个蓝、不透明、不毛玻璃 */
   .btn-dark{position:relative;color:#fff;
-    background:linear-gradient(180deg,rgba(72,162,255,.92),rgba(0,108,228,.96));
-    -webkit-backdrop-filter:blur(12px) saturate(1.8);backdrop-filter:blur(12px) saturate(1.8);
-    border:1px solid rgba(255,255,255,.34);
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,.62),
-      inset 0 -12px 22px rgba(0,46,118,.32),
-      0 6px 16px rgba(0,92,214,.34),
-      0 18px 40px rgba(0,92,214,.22)}
-  /* 顶部镜面高光：上半段一层白到透明的渐变，模拟玻璃反光 */
-  .btn-dark::after{content:"";position:absolute;left:0;right:0;top:0;height:52%;pointer-events:none;
-    border-top-left-radius:inherit;border-top-right-radius:inherit;
-    background:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,0))}
+    background:linear-gradient(180deg,#0a84ff,#0071e3);
+    -webkit-backdrop-filter:none;backdrop-filter:none;
+    border:1px solid rgba(255,255,255,.22);
+    box-shadow:0 2px 10px -2px rgba(0,113,227,.6),inset 0 1px 0 rgba(255,255,255,.32)}
+  .btn-dark::after{display:none}
   .btn-dark:hover{transform:translateY(-1px);
-    background:linear-gradient(180deg,rgba(84,172,255,.94),rgba(0,116,236,.98));
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,.68),
-      inset 0 -12px 22px rgba(0,46,118,.34),
-      0 8px 20px rgba(0,92,214,.42),
-      0 22px 48px rgba(0,92,214,.26)}
+    background:linear-gradient(180deg,#1a8dff,#0077ec);
+    box-shadow:0 4px 14px -2px rgba(0,113,227,.7),inset 0 1px 0 rgba(255,255,255,.36)}
   /* 背景：去纯白，换成带极淡冷调光晕 + 轻微冷白渐变的层次画布，玻璃有东西可透 */
   .bg-mesh{background:linear-gradient(180deg,#ffffff 0%,#f5f5f7 55%,#f0f0f3 100%)}
   .bg-grid{display:none!important}
