@@ -747,6 +747,34 @@
   .bind-tab{border:0;background:transparent;cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:600;
     color:var(--ink-soft);padding:8px 22px;border-radius:999px;transition:.2s}
   .bind-tab.active{background:#fff;color:var(--ink);box-shadow:var(--shadow-sm)}
+
+  /* ============================================================
+     去 AI 味 polish（覆盖层）：弱化玻璃/渐变/动效，收紧层次留白。
+     放在样式最后，靠层叠覆盖上面的"液态玻璃"效果；要回退删掉本块即可。
+     ============================================================ */
+  /* 1) 阴影 token 收扁：去掉多层 puffy 外扩散 + inset 高光，改成干净两层 */
+  :root{
+    --shadow:0 1px 2px rgba(20,30,60,.04),0 6px 18px rgba(20,30,60,.055);
+    --shadow-sm:0 1px 2px rgba(20,30,60,.04),0 3px 9px rgba(20,30,60,.05);
+    --shadow-lg:0 4px 14px rgba(20,30,60,.07),0 16px 38px rgba(20,30,60,.09);
+  }
+  /* 2) 卡片去"液态玻璃"：近实白 + 一根干净细边 + 收敛阴影；去掉镜面高光/流光/玻璃描边 */
+  .glass-real,.glass-lite{
+    background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
+  .glass-real::before,.glass-lite::before{display:none!important}
+  .glass-real.sheen::after{display:none!important}
+  .pill{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+  .nav{background:rgba(255,255,255,.94);border:1px solid var(--line)}
+  .cmd-box{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
+  .cmd-box::before,.cmd-box::after{display:none!important}
+  /* 3) 关键词去"渐变扫光"：统一成纯经典蓝实色、静止不动，安静有重点 */
+  .hero-title em,.sec-head h2 em,.cta-wrap h2 em,.interest-lead em,.grad{
+    background:none!important;-webkit-text-fill-color:var(--accent)!important;
+    color:var(--accent)!important;animation:none!important}
+  /* 4) 背景网格点更淡一点，减少"科技感噪点" */
+  .bg-grid{opacity:.5}
+  /* 5) 终点 CTA 去发光装饰 */
+  .cta-glow{display:none!important}
 </style>
 </head>
 <body class="zh">
