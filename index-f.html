@@ -1234,36 +1234,9 @@
     <!-- 步骤 ② onboarding：说 → agent 理解 → 整理好让你微调（三阶段，同一步内切换）-->
     <div class="claim-step" data-step="2">
 
-      <!-- 阶段 A：跟你的 agent 说说你自己 -->
-      <div id="ob-say">
-        <div class="claim-title i18n" data-en="Tell your agent about you" data-zh="先跟你的 agent 说说你自己">先跟你的 agent 说说你自己</div>
-        <div class="claim-desc i18n" data-en="Just say it in your own words — who you are, where, what you're up to, what you're after. It builds your profile for you." data-zh="用大白话说说你是谁、在哪、在做什么、想找什么——一段话就行，它帮你整理成档案。">用大白话说说你是谁、在哪、在做什么、想找什么——一段话就行，它帮你整理成档案。</div>
-        <textarea class="claim-input claim-textarea i18n" id="ob-text" rows="4" data-en-ph="Say what you're up to, what you're looking for, or what you can offer — a line is enough." data-zh-ph="说说你在做什么、想找什么或想提供什么就行——一句话也可以。" placeholder="说说你在做什么、想找什么或想提供什么就行——一句话也可以。"></textarea>
-        <div class="ob-examples">
-          <div class="ob-ex-label i18n" data-en="Try one of these:" data-zh="试试这样说：">试试这样说：</div>
-          <button class="ob-ex i18n" onclick="obFillEx(this)" data-en="Building solo — looking for a solid front-end dev to build with." data-zh="做独立开发，想找个靠谱的前端一起做产品。">做独立开发，想找个靠谱的前端一起做产品。</button>
-          <button class="ob-ex i18n" onclick="obFillEx(this)" data-en="Got spare GPUs — want to rent them to people who actually need them." data-zh="手里有几张闲置 GPU，想租给真有需要的人。">手里有几张闲置 GPU，想租给真有需要的人。</button>
-          <button class="ob-ex i18n" onclick="obFillEx(this)" data-en="Scouting early AI projects — want to meet infra founders." data-zh="在看 AI 早期项目，想认识做基础设施的创始人。">在看 AI 早期项目，想认识做基础设施的创始人。</button>
-          <button class="ob-ex i18n" onclick="obFillEx(this)" data-en="New in town — want to meet a few like-minded people to click with." data-zh="刚到一个城市，想认识几个志同道合、聊得来的朋友。">刚到一个城市，想认识几个志同道合、聊得来的朋友。</button>
-        </div>
-        <a class="btn btn-dark claim-btn-full" onclick="obAiFill()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l1.6 4.4L18 10l-4.4 1.6L12 16l-1.6-4.4L6 10l4.4-1.6L12 4z"/><path d="M19 15l.6 1.7L21.3 17l-1.7.6L19 19.3l-.6-1.7L16.7 17l1.7-.6L19 15z"/></svg>
-          <span class="i18n" data-en="Let the agent sort it out" data-zh="让 agent 帮我整理">让 agent 帮我整理</span>
-        </a>
-        <span class="claim-back i18n" data-en="Fill it in myself →" data-zh="自己填 →" onclick="obManual()">自己填 →</span>
-        <span class="claim-back i18n" data-en="← Back" data-zh="← 上一步" onclick="claimGo(1)" style="margin-left:16px">← 上一步</span>
-      </div>
-
-      <!-- 阶段 B：agent 正在理解 -->
-      <div id="ob-loading" style="display:none;text-align:center;padding:44px 0 40px">
-        <div class="ob-spinner"></div>
-        <div class="claim-desc i18n" data-en="Your agent is reading you…" data-zh="agent 正在理解你…" style="margin-top:16px">agent 正在理解你…</div>
-      </div>
-
-      <!-- 阶段 C：整理好了，review + 微调 -->
-      <div id="ob-review" style="display:none">
-        <div class="claim-title i18n" id="ob-review-title" data-en="Here's what your agent got" data-zh="agent 帮你整理好了">agent 帮你整理好了</div>
-        <div class="claim-desc i18n" id="ob-review-desc" data-en="Have a look — tweak anything that's off." data-zh="看看要不要改——一切都能调。">看看要不要改——一切都能调。</div>
+      <div id="ob-review">
+        <div class="claim-title i18n" data-en="Set up your profile" data-zh="完善你的资料">完善你的资料</div>
+        <div class="claim-desc i18n" data-en="Fill this in so your agent matches you better." data-zh="填一下，帮你的 agent 更准地匹配。">填一下，帮你的 agent 更准地匹配。</div>
 
         <div class="claim-field">
           <label class="claim-label i18n" data-en="What should we call you?" data-zh="怎么称呼你（网名）">怎么称呼你（网名）</label>
@@ -1271,10 +1244,10 @@
         </div>
         <div class="claim-field">
           <label class="claim-label i18n" data-en="Where are you based?" data-zh="所在地（城市）">所在地（城市）</label>
-          <input class="claim-input i18n" type="text" id="ob-loc" data-en-ph="e.g. Beijing, Remote, SF" data-zh-ph="比如：北京、远程、旧金山" placeholder="比如：北京、远程、旧金山" />
+          <input class="claim-input i18n" type="text" id="ob-loc" data-en-ph="e.g. Beijing, SF" data-zh-ph="比如：北京、旧金山" placeholder="比如：北京、旧金山" />
         </div>
         <div class="claim-subhead i18n" data-en="What you do" data-zh="你在做什么" style="margin-top:20px">你在做什么</div>
-        <div class="ob-match-note i18n" id="ob-doing-note" data-en="Picked from what you said — add or remove." data-zh="agent 从你说的里选的，可增删。">agent 从你说的里选的，可增删。</div>
+        <div class="ob-match-note i18n" id="ob-doing-note" data-en="Picked from what you said — add or remove." data-zh="点选符合你的，可多选。">点选符合你的，可多选。</div>
         <div class="interest-grid" id="ob-doing">
           <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Founder" data-zh="创业者">创业者</button>
           <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Indie dev" data-zh="独立开发">独立开发</button>
@@ -1292,7 +1265,7 @@
         </div>
 
         <div class="claim-subhead i18n" data-en="What you're looking for" data-zh="想找什么" style="margin-top:20px">想找什么</div>
-        <div class="ob-match-note i18n" id="ob-want-note" data-en="Picked from what you said — add or remove." data-zh="agent 从你说的里选的，可增删。">agent 从你说的里选的，可增删。</div>
+        <div class="ob-match-note i18n" id="ob-want-note" data-en="Picked from what you said — add or remove." data-zh="点选符合你的，可多选。">点选符合你的，可多选。</div>
         <div class="interest-grid" id="ob-want">
           <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Hiring" data-zh="找人/招聘">找人/招聘</button>
           <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Partners" data-zh="找合作/合伙">找合作/合伙</button>
@@ -1309,7 +1282,7 @@
 
         <div class="claim-tip i18n" data-en="Tip: later, just tell your agent to change anything — e.g. “update what I'm looking for.” It updates itself; no need to come back here." data-zh="小提示：以后想改，直接跟你的 agent 说一句就行，比如「把我想找的改成 XX」，它会自己更新，不用再回来填。">小提示：以后想改，直接跟你的 agent 说一句就行，比如「把我想找的改成 XX」，它会自己更新，不用再回来填。</div>
         <a class="btn btn-dark claim-btn-full i18n" data-en="Confirm" data-zh="确定" onclick="claimGo(3)">确定</a>
-        <span class="claim-back i18n" data-en="← Say it again" data-zh="← 重新说" onclick="obBackToSay()">← 重新说</span>
+        <span class="claim-back i18n" data-en="← Back" data-zh="← 上一步" onclick="claimGo(1)">← 上一步</span>
       </div>
     </div>
 
@@ -1839,7 +1812,6 @@ var 当前绑定 = 'wechat';
 /* 打开弹层：随机生成一个 agent 名，回到第 ① 步（邮箱注册）*/
 function openClaim(事件){
   if(事件) 事件.preventDefault();
-  if(typeof obResetPhases==='function') obResetPhases(); // onboarding 回到「说」阶段
   claimGo(1);
   document.getElementById('claim-overlay').classList.add('open');
   document.body.style.overflow = 'hidden'; // 锁背景滚动
