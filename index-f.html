@@ -770,11 +770,12 @@
     color:var(--ink);padding:13px 15px;border-radius:12px;border:1px solid rgba(10,14,40,.14);
     background:rgba(255,255,255,.82);outline:none;margin-top:6px}
   .claim-textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,113,227,.14)}
-  /* 可点击的示例卡（点一下填进输入框）*/
-  .ob-example{margin-top:12px;padding:11px 13px;border-radius:10px;text-align:left;font-size:12.5px;line-height:1.55;
-    color:var(--ink-soft);background:rgba(0,113,227,.05);border:1px dashed rgba(0,113,227,.32);cursor:pointer;transition:.15s}
-  .ob-example:hover{background:rgba(0,113,227,.09);border-color:rgba(0,113,227,.5)}
-  .ob-example-tag{display:inline;font-size:11px;font-weight:700;color:var(--accent);margin-right:6px}
+  /* 一排可点的多样化示例（点一条填进输入框）*/
+  .ob-examples{margin-top:12px;display:flex;flex-direction:column;gap:6px}
+  .ob-ex-label{font-size:11.5px;font-weight:600;color:var(--muted);margin-bottom:2px;text-align:left}
+  .ob-ex{text-align:left;width:100%;font-family:var(--sans);font-size:12.5px;line-height:1.45;color:var(--ink-soft);cursor:pointer;
+    background:rgba(0,113,227,.04);border:1px dashed rgba(0,113,227,.28);border-radius:9px;padding:8px 11px;transition:.15s}
+  .ob-ex:hover{background:rgba(0,113,227,.09);border-color:rgba(0,113,227,.5);color:var(--ink)}
   /* “agent 正在理解” spinner */
   .ob-spinner{width:34px;height:34px;border-radius:50%;margin:0 auto;
     border:3px solid rgba(0,113,227,.18);border-top-color:var(--accent);animation:obspin .8s linear infinite}
@@ -1237,10 +1238,13 @@
       <div id="ob-say">
         <div class="claim-title i18n" data-en="Tell your agent about you" data-zh="先跟你的 agent 说说你自己">先跟你的 agent 说说你自己</div>
         <div class="claim-desc i18n" data-en="Just say it in your own words — who you are, where, what you're up to, what you're after. It builds your profile for you." data-zh="用大白话说说你是谁、在哪、在忙什么、想找什么——一段话就行，它帮你整理成档案。">用大白话说说你是谁、在哪、在忙什么、想找什么——一段话就行，它帮你整理成档案。</div>
-        <textarea class="claim-input claim-textarea i18n" id="ob-text" rows="4" data-en-ph="e.g. I'm Alex, based in SF, building an AI hiring tool. Looking for engineers who've shipped RAG and people into AI go-global." data-zh-ph="比如：我是老王，在北京做 AI 招聘工具，想找做过 RAG 的工程师，也想认识玩 AI 出海的人。" placeholder="比如：我是老王，在北京做 AI 招聘工具，想找做过 RAG 的工程师，也想认识玩 AI 出海的人。"></textarea>
-        <div class="ob-example" onclick="obFillExample()">
-          <span class="ob-example-tag i18n" data-en="Try this" data-zh="试试这样说">试试这样说</span>
-          <span class="ob-example-text i18n" data-en="I'm Alex, based in SF, building an AI hiring tool. Looking for engineers who've shipped RAG and people into AI go-global." data-zh="我是老王，在北京做 AI 招聘工具，想找做过 RAG 的工程师，也想认识玩 AI 出海的人。">我是老王，在北京做 AI 招聘工具，想找做过 RAG 的工程师，也想认识玩 AI 出海的人。</span>
+        <textarea class="claim-input claim-textarea i18n" id="ob-text" rows="4" data-en-ph="Say what you're up to, what you're looking for, or what you can offer — a line is enough." data-zh-ph="说说你在做什么、想找什么或想提供什么就行——一句话也可以。" placeholder="说说你在做什么、想找什么或想提供什么就行——一句话也可以。"></textarea>
+        <div class="ob-examples">
+          <div class="ob-ex-label i18n" data-en="Try one of these:" data-zh="试试这样说：">试试这样说：</div>
+          <button class="ob-ex i18n" onclick="obFillEx(this)" data-en="Building solo — looking for a solid front-end dev to build with." data-zh="做独立开发，想找个靠谱的前端一起做产品。">做独立开发，想找个靠谱的前端一起做产品。</button>
+          <button class="ob-ex i18n" onclick="obFillEx(this)" data-en="Got spare GPUs — want to rent them to people who actually need them." data-zh="手里有几张闲置 GPU，想租给真有需要的人。">手里有几张闲置 GPU，想租给真有需要的人。</button>
+          <button class="ob-ex i18n" onclick="obFillEx(this)" data-en="Scouting early AI projects — want to meet infra founders." data-zh="在看 AI 早期项目，想认识做基础设施的创始人。">在看 AI 早期项目，想认识做基础设施的创始人。</button>
+          <button class="ob-ex i18n" onclick="obFillEx(this)" data-en="New in town — want to meet a few like-minded people to click with." data-zh="刚到一个城市，想认识几个志同道合、聊得来的朋友。">刚到一个城市，想认识几个志同道合、聊得来的朋友。</button>
         </div>
         <a class="btn btn-dark claim-btn-full" onclick="obAiFill()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l1.6 4.4L18 10l-4.4 1.6L12 16l-1.6-4.4L6 10l4.4-1.6L12 4z"/><path d="M19 15l.6 1.7L21.3 17l-1.7.6L19 19.3l-.6-1.7L16.7 17l1.7-.6L19 15z"/></svg>
@@ -1293,6 +1297,7 @@
           <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Research" data-zh="深度研究">深度研究</button>
           <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Community" data-zh="社群讨论">社群讨论</button>
           <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Group-buy" data-zh="一起拼单">一起拼单</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Social" data-zh="交友">交友</button>
         </div>
 
         <div class="claim-tip i18n" data-en="Tip: after this, just tell your agent to change anything — e.g. “drop Resources from my interests.” It updates itself; no need to come back here." data-zh="小提示：以后想改，直接跟你的 agent 说一句就行，比如「把我关注的方向去掉资源交换」，它会自己更新，不用再回来填。">小提示：以后想改，直接跟你的 agent 说一句就行，比如「把我关注的方向去掉资源交换」，它会自己更新，不用再回来填。</div>
@@ -1866,15 +1871,15 @@ var 兴趣关键词 = {
   '资源交换': ['资源','算力','gpu','h100','显卡','额度','quota','交换','共享','合租','带宽','compute','resource'],
   '深度研究': ['研究','调研','报告','分析','行研','尽调','research','analysis'],
   '社群讨论': ['社群','群','讨论','圈子','community','discuss'],
-  '一起拼单': ['拼','拼单','拼团','分摊','团购','凑','group buy','group-buy','split','share cost']
+  '一起拼单': ['拼','拼单','拼团','分摊','团购','凑','group buy','group-buy','split','share cost'],
+  '交友': ['交友','朋友','搭子','认识几个','聊得来','志同道合','同好','玩到一起','处对象','找对象','伴侣','约会','恋','social','date','dating','partner','buddy']
 };
 var 城市列表 = ['北京','上海','深圳','杭州','广州','成都','南京','武汉','西安','苏州','重庆','厦门','远程','旧金山','硅谷','纽约','洛杉矶','西雅图','新加坡','香港','台北','东京','伦敦','柏林','bay area','sf','remote','nyc','la'];
 
-/* 点击示例：填进输入框 */
-function obFillExample(){
+/* 点击某个示例：把它填进输入框 */
+function obFillEx(元素){
   var 框 = document.getElementById('ob-text');
-  var 例 = document.querySelector('#ob-say .ob-example-text');
-  if(框 && 例){ 框.value = 例.textContent.trim(); 框.focus(); }
+  if(框 && 元素){ 框.value = 元素.textContent.trim(); 框.focus(); }
 }
 /* 阶段切换工具 */
 function obShow(哪个){
