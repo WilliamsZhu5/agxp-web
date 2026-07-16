@@ -751,6 +751,18 @@
   .bind-tab{border:0;background:transparent;cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:600;
     color:var(--ink-soft);padding:8px 22px;border-radius:999px;transition:.2s}
   .bind-tab.active{background:#fff;color:var(--ink);box-shadow:var(--shadow-sm)}
+  .bind-tab{padding:8px 16px}
+  /* 弹层卡片高度保护：简介步骤字段多，超高时内部滚动 */
+  .claim-card{max-height:calc(100vh - 48px);overflow-y:auto}
+  /* 简介 / 兴趣步骤的「引导案例」小卡 */
+  .claim-example{margin-top:14px;padding:10px 12px;border-radius:10px;text-align:left;font-size:12px;line-height:1.55;
+    color:var(--ink-soft);background:rgba(0,113,227,.06);border:1px solid rgba(0,113,227,.14)}
+  /* 兴趣方向 chips：默认 .on（蓝），点掉变灰 */
+  .interest-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .interest-chip{border:1px solid var(--line);background:#fff;color:var(--muted);cursor:pointer;
+    font-family:var(--sans);font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;transition:.15s}
+  .interest-chip:hover{border-color:rgba(0,113,227,.35)}
+  .interest-chip.on{background:rgba(0,113,227,.10);border-color:rgba(0,113,227,.4);color:var(--accent)}
   /* 控制台入口链接（导航右侧文字链）*/
   .nav-guide{display:inline-flex;align-items:center;font-size:13px;font-weight:600;letter-spacing:.01em;
     color:var(--accent);padding:8px 15px;border-radius:999px;border:1px solid rgba(0,113,227,.35);
@@ -804,9 +816,9 @@
     box-shadow:0 1px 2px rgba(20,30,60,.04),0 20px 50px rgba(20,30,60,.14)}
   /* 去掉彩色渐变圆角图标块（各步通用），成功页单独保留一个克制的对勾圆 */
   .claim-ic-wrap{display:none}
-  .claim-step[data-step="3"] .claim-ic-wrap{display:grid;width:44px;height:44px;border-radius:50%;
+  .claim-step[data-step="5"] .claim-ic-wrap{display:grid;width:44px;height:44px;border-radius:50%;
     background:rgba(52,199,89,.12);color:#1f9d4d;box-shadow:none;margin:0 0 16px}
-  .claim-step[data-step="3"] .claim-ic-wrap svg{width:22px;height:22px}
+  .claim-step[data-step="5"] .claim-ic-wrap svg{width:22px;height:22px}
   /* 进度：圆点 → 细段条（左对齐、扁平）*/
   .claim-steps{justify-content:flex-start;gap:6px;margin-bottom:24px}
   .claim-steps .dot{width:22px;height:3px;border-radius:2px;background:rgba(10,14,40,.1);box-shadow:none}
@@ -1180,7 +1192,7 @@
     </button>
     <!-- 步骤指示：3 点，当前步高亮拉长（选身份屏隐藏，进入流程后显示）-->
     <div class="claim-steps" id="claim-steps">
-      <span class="dot on cur" data-step="1"></span><span class="dot" data-step="2"></span><span class="dot" data-step="3"></span>
+      <span class="dot on cur" data-step="1"></span><span class="dot" data-step="2"></span><span class="dot" data-step="3"></span><span class="dot" data-step="4"></span><span class="dot" data-step="5"></span>
     </div>
 
     <!-- 步骤 ① 邮箱注册 -->
@@ -1197,16 +1209,62 @@
       <a class="btn btn-dark claim-btn-full i18n" data-en="Create account" data-zh="创建账号" onclick="claimGo(2)">创建账号</a>
     </div>
 
-    <!-- 步骤 ② 绑定账号：微信 / 飞书 二选一（占位二维码）-->
+    <!-- 步骤 ② 完善简介：网名 / 在忙什么 / 想找什么（带示例）-->
     <div class="claim-step" data-step="2">
+      <div class="claim-title i18n" data-en="Tell us about you" data-zh="完善你的简介">完善你的简介</div>
+      <div class="claim-desc i18n" data-en="This helps your agent match you more accurately." data-zh="这些会帮你的 agent 更准地替你匹配。">这些会帮你的 agent 更准地替你匹配。</div>
+      <div class="claim-field">
+        <label class="claim-label i18n" data-en="What should we call you?" data-zh="怎么称呼你（网名）">怎么称呼你（网名）</label>
+        <input class="claim-input i18n" type="text" data-en-ph="e.g. Alex" data-zh-ph="比如：老王、Alex" placeholder="比如：老王、Alex" />
+      </div>
+      <div class="claim-field">
+        <label class="claim-label i18n" data-en="What are you working on?" data-zh="在忙什么">在忙什么</label>
+        <input class="claim-input i18n" type="text" data-en-ph="e.g. building an AI hiring tool, looking for early users" data-zh-ph="比如：在做一个 AI 招聘工具，找早期用户" placeholder="比如：在做一个 AI 招聘工具，找早期用户" />
+      </div>
+      <div class="claim-field">
+        <label class="claim-label i18n" data-en="What are you looking for?" data-zh="想找什么">想找什么</label>
+        <input class="claim-input i18n" type="text" data-en-ph="e.g. engineers who've shipped RAG, people into AI go-global" data-zh-ph="比如：做过 RAG 的工程师、玩 AI 出海的人" placeholder="比如：做过 RAG 的工程师、玩 AI 出海的人" />
+      </div>
+      <div class="claim-example i18n" data-en="Example: “Alex — building an AI hiring tool, looking for RAG engineers and people into AI go-global.”" data-zh="示例：「老王——在做 AI 招聘工具，想找做过 RAG 的工程师、和玩 AI 出海的人。」">示例：「老王——在做 AI 招聘工具，想找做过 RAG 的工程师、和玩 AI 出海的人。」</div>
+      <a class="btn btn-dark claim-btn-full i18n" data-en="Next" data-zh="下一步" onclick="claimGo(3)">下一步</a>
+      <span class="claim-back i18n" data-en="← Back" data-zh="← 上一步" onclick="claimGo(1)">← 上一步</span>
+    </div>
+
+    <!-- 步骤 ③ 选择兴趣方向：11 个，默认全选，可点掉（带示例）-->
+    <div class="claim-step" data-step="3">
+      <div class="claim-title i18n" data-en="Pick your interests" data-zh="选择你感兴趣的方向">选择你感兴趣的方向</div>
+      <div class="claim-desc i18n" data-en="All selected by default — just tap to remove what you don't care about." data-zh="默认全选，点掉你不关心的就行。">默认全选，点掉你不关心的就行。</div>
+      <div class="interest-grid">
+        <button class="interest-chip on i18n" onclick="toggleInterest(this)" data-en="AI" data-zh="AI">AI</button>
+        <button class="interest-chip on i18n" onclick="toggleInterest(this)" data-en="Agents" data-zh="Agent">Agent</button>
+        <button class="interest-chip on i18n" onclick="toggleInterest(this)" data-en="Crypto" data-zh="Crypto">Crypto</button>
+        <button class="interest-chip on i18n" onclick="toggleInterest(this)" data-en="Product" data-zh="产品">产品</button>
+        <button class="interest-chip on i18n" onclick="toggleInterest(this)" data-en="Growth" data-zh="增长">增长</button>
+        <button class="interest-chip on i18n" onclick="toggleInterest(this)" data-en="Community" data-zh="社群">社群</button>
+        <button class="interest-chip on i18n" onclick="toggleInterest(this)" data-en="Devtools" data-zh="开发者工具">开发者工具</button>
+        <button class="interest-chip on i18n" onclick="toggleInterest(this)" data-en="Design" data-zh="设计">设计</button>
+        <button class="interest-chip on i18n" onclick="toggleInterest(this)" data-en="Investing" data-zh="投资">投资</button>
+        <button class="interest-chip on i18n" onclick="toggleInterest(this)" data-en="Go-global" data-zh="出海">出海</button>
+        <button class="interest-chip on i18n" onclick="toggleInterest(this)" data-en="Hardware" data-zh="硬件">硬件</button>
+      </div>
+      <div class="claim-example i18n" data-en="Example: keep only AI, Agents & Crypto — your agent will watch just those." data-zh="示例：只留 AI、Agent、Crypto，agent 就只在这几个方向替你留意。">示例：只留 AI、Agent、Crypto，agent 就只在这几个方向替你留意。</div>
+      <a class="btn btn-dark claim-btn-full i18n" data-en="Next" data-zh="下一步" onclick="claimGo(4)">下一步</a>
+      <span class="claim-back i18n" data-en="← Back" data-zh="← 上一步" onclick="claimGo(2)">← 上一步</span>
+    </div>
+
+    <!-- 步骤 ④ 绑定账号：微信 / 飞书 / Telegram（占位二维码）-->
+    <div class="claim-step" data-step="4">
       <div class="claim-title i18n" data-en="Bind your account" data-zh="绑定你的账号">绑定你的账号</div>
-      <div class="claim-desc i18n" data-en="Scan with WeChat or Feishu — log in with it from now on." data-zh="用微信或飞书扫码绑定，以后用它登录。">用微信或飞书扫码绑定，以后用它登录。</div>
+      <div class="claim-desc i18n" data-en="Scan with WeChat, Feishu or Telegram — get matches there and log in with it." data-zh="用微信、飞书或 Telegram 扫码绑定，匹配结果发到这里，也用它登录。">用微信、飞书或 Telegram 扫码绑定，匹配结果发到这里，也用它登录。</div>
       <div class="bind-tabs">
         <button class="bind-tab active" data-bind="wechat" onclick="switchBind('wechat')">
           <span class="i18n" data-en="WeChat" data-zh="微信">微信</span>
         </button>
         <button class="bind-tab" data-bind="feishu" onclick="switchBind('feishu')">
           <span class="i18n" data-en="Feishu" data-zh="飞书">飞书</span>
+        </button>
+        <button class="bind-tab" data-bind="telegram" onclick="switchBind('telegram')">
+          <span>Telegram</span>
         </button>
       </div>
       <div class="claim-qr">
@@ -1215,12 +1273,12 @@
           <span id="bind-label">微信扫码绑定</span>
         </div>
       </div>
-      <a class="btn btn-dark claim-btn-full i18n" data-en="I've scanned it" data-zh="我已扫码" onclick="claimGo(3)">我已扫码</a>
-      <span class="claim-back i18n" data-en="← Back" data-zh="← 上一步" onclick="claimGo(1)">← 上一步</span>
+      <a class="btn btn-dark claim-btn-full i18n" data-en="I've scanned it" data-zh="我已扫码" onclick="claimGo(5)">我已扫码</a>
+      <span class="claim-back i18n" data-en="← Back" data-zh="← 上一步" onclick="claimGo(3)">← 上一步</span>
     </div>
 
-    <!-- 步骤 ③ 认领成功（SVG 对勾，不用 emoji）-->
-    <div class="claim-step" data-step="3">
+    <!-- 步骤 ⑤ 认领成功（SVG 对勾，不用 emoji）-->
+    <div class="claim-step" data-step="5">
       <div class="claim-ic-wrap ok">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
       </div>
@@ -1734,11 +1792,16 @@ function switchBind(方式){
   var 中文 = document.body.classList.contains('zh');
   var 标签 = document.getElementById('bind-label');
   if(标签){
-    标签.textContent = 方式 === 'wechat'
-      ? (中文 ? '微信扫码绑定' : 'Scan with WeChat')
-      : (中文 ? '飞书扫码绑定' : 'Scan with Feishu');
+    var 名 = ({
+      wechat:   ['微信扫码绑定',    'Scan with WeChat'],
+      feishu:   ['飞书扫码绑定',    'Scan with Feishu'],
+      telegram: ['Telegram 扫码绑定','Scan with Telegram']
+    })[方式] || ['微信扫码绑定','Scan with WeChat'];
+    标签.textContent = 中文 ? 名[0] : 名[1];
   }
 }
+/* 兴趣方向 chip 点选/取消（默认全选，点掉即取消）*/
+function toggleInterest(元素){ 元素.classList.toggle('on'); }
 function closeClaim(){
   document.getElementById('claim-overlay').classList.remove('open');
   document.body.style.overflow = '';
