@@ -765,6 +765,9 @@
   .interest-chip.on{background:rgba(0,113,227,.10);border-color:rgba(0,113,227,.4);color:var(--accent)}
   /* onboarding 合并屏的分段小标题 */
   .claim-subhead{font-size:13px;font-weight:700;color:var(--ink);margin-top:22px;margin-bottom:2px;text-align:left}
+  /* 必填校验：空字段红边 + 未满足时确定按钮变灰 */
+  .claim-input.err{border-color:#e5484d!important;box-shadow:0 0 0 3px rgba(229,72,77,.14)!important}
+  .btn-dark.is-disabled{opacity:.45}
   /* AI 辅助 onboarding：自由文本框 */
   .claim-textarea{width:100%;min-height:112px;resize:vertical;font-family:var(--sans);font-size:15px;line-height:1.6;
     color:var(--ink);padding:13px 15px;border-radius:12px;border:1px solid rgba(10,14,40,.14);
@@ -1281,7 +1284,7 @@
         </div>
 
         <div class="claim-tip i18n" data-en="Tip: later, just tell your agent to change anything — e.g. “update what I'm looking for.” It updates itself; no need to come back here." data-zh="小提示：以后想改，直接跟你的 agent 说一句就行，比如「把我想找的改成 XX」，它会自己更新，不用再回来填。">小提示：以后想改，直接跟你的 agent 说一句就行，比如「把我想找的改成 XX」，它会自己更新，不用再回来填。</div>
-        <a class="btn btn-dark claim-btn-full i18n" data-en="Confirm" data-zh="确定" onclick="claimGo(3)">确定</a>
+        <a class="btn btn-dark claim-btn-full is-disabled i18n" id="ob-confirm" data-en="Confirm" data-zh="确定" onclick="obConfirm()">确定</a>
         <span class="claim-back i18n" data-en="← Back" data-zh="← 上一步" onclick="claimGo(1)">← 上一步</span>
       </div>
     </div>
@@ -1836,6 +1839,27 @@ function switchBind(方式){
 }
 /* 兴趣方向 chip 点选/取消（默认全选，点掉即取消）*/
 function toggleInterest(元素){ 元素.classList.toggle('on'); }
+
+/* ===== 完善资料：网名 + 所在地 必填校验 ===== */
+function obCheckReady(){
+  var nm=document.getElementById('ob-name'), loc=document.getElementById('ob-loc');
+  var 就绪 = nm && nm.value.trim() && loc && loc.value.trim();
+  var 按钮=document.getElementById('ob-confirm'); if(按钮) 按钮.classList.toggle('is-disabled', !就绪);
+}
+/* 点确定：网名/所在地 有空的就高亮 + 聚焦，不前进；都填了才进绑定 */
+function obConfirm(){
+  var nm=document.getElementById('ob-name'), loc=document.getElementById('ob-loc');
+  var 缺=null;
+  [nm,loc].forEach(function(el){ if(el && !el.value.trim()){ el.classList.add('err'); if(!缺) 缺=el; } });
+  if(缺){ 缺.focus(); return; }
+  claimGo(3);
+}
+/* 输入时清红 + 更新按钮态（脚本在 body 末尾，元素已存在）*/
+['ob-name','ob-loc'].forEach(function(id){
+  var el=document.getElementById(id);
+  if(el) el.addEventListener('input', function(){ el.classList.remove('err'); obCheckReady(); });
+});
+obCheckReady();
 
 /* ===== AI 辅助 onboarding（纯前端启发式模拟；真上线时把 obParse 换成调 LLM）===== */
 /* 兴趣方向关键词表：命中即帮用户勾上对应方向 */
