@@ -765,6 +765,9 @@
   .interest-chip.on{background:rgba(0,113,227,.10);border-color:rgba(0,113,227,.4);color:var(--accent)}
   /* onboarding 合并屏的分段小标题 */
   .claim-subhead{font-size:13px;font-weight:700;color:var(--ink);margin-top:22px;margin-bottom:2px;text-align:left}
+  /* 「以后可以直接让 agent 改」的小提示（左侧蓝边，区别于蓝底示例）*/
+  .claim-tip{margin-top:18px;padding:10px 12px 10px 13px;border-radius:8px;text-align:left;font-size:12px;line-height:1.55;
+    color:var(--ink-soft);background:rgba(10,14,40,.035);border-left:3px solid var(--accent)}
   /* 控制台入口链接（导航右侧文字链）*/
   .nav-guide{display:inline-flex;align-items:center;font-size:13px;font-weight:600;letter-spacing:.01em;
     color:var(--accent);padding:8px 15px;border-radius:999px;border:1px solid rgba(0,113,227,.35);
@@ -1222,6 +1225,10 @@
         <input class="claim-input i18n" type="text" data-en-ph="e.g. Alex" data-zh-ph="比如：老王、Alex" placeholder="比如：老王、Alex" />
       </div>
       <div class="claim-field">
+        <label class="claim-label i18n" data-en="Where are you based?" data-zh="所在地（城市）">所在地（城市）</label>
+        <input class="claim-input i18n" type="text" data-en-ph="e.g. Beijing, Remote, SF" data-zh-ph="比如：北京、远程、旧金山" placeholder="比如：北京、远程、旧金山" />
+      </div>
+      <div class="claim-field">
         <label class="claim-label i18n" data-en="What are you working on?" data-zh="在忙什么">在忙什么</label>
         <input class="claim-input i18n" type="text" data-en-ph="e.g. building an AI hiring tool, looking for early users" data-zh-ph="比如：在做一个 AI 招聘工具，找早期用户" placeholder="比如：在做一个 AI 招聘工具，找早期用户" />
       </div>
@@ -1247,6 +1254,7 @@
         <button class="interest-chip on i18n" onclick="toggleInterest(this)" data-en="Group-buy" data-zh="一起拼单">一起拼单</button>
       </div>
 
+      <div class="claim-tip i18n" data-en="Tip: after this, just tell your agent to change anything — e.g. “drop Crypto from my interests.” It updates itself; no need to come back here." data-zh="小提示：填好后想改，直接跟你的 agent 说一句就行，比如「把我关注的方向去掉资源交换」，它会自己更新，不用再回来填。">小提示：填好后想改，直接跟你的 agent 说一句就行，比如「把我关注的方向去掉资源交换」，它会自己更新，不用再回来填。</div>
       <a class="btn btn-dark claim-btn-full i18n" data-en="Confirm" data-zh="确定" onclick="claimGo(3)">确定</a>
       <span class="claim-back i18n" data-en="← Back" data-zh="← 上一步" onclick="claimGo(1)">← 上一步</span>
     </div>
