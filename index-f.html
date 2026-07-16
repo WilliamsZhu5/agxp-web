@@ -1265,7 +1265,6 @@
         <div class="claim-title i18n" id="ob-review-title" data-en="Here's what your agent got" data-zh="agent 帮你整理好了">agent 帮你整理好了</div>
         <div class="claim-desc i18n" id="ob-review-desc" data-en="Have a look — tweak anything that's off." data-zh="看看要不要改——一切都能调。">看看要不要改——一切都能调。</div>
 
-        <div class="claim-subhead i18n" data-en="1 · About you" data-zh="1 · 你的简介">1 · 你的简介</div>
         <div class="claim-field">
           <label class="claim-label i18n" data-en="What should we call you?" data-zh="怎么称呼你（网名）">怎么称呼你（网名）</label>
           <input class="claim-input i18n" type="text" id="ob-name" data-en-ph="Pick a nickname" data-zh-ph="给自己起个网名" placeholder="给自己起个网名" />
@@ -1274,32 +1273,41 @@
           <label class="claim-label i18n" data-en="Where are you based?" data-zh="所在地（城市）">所在地（城市）</label>
           <input class="claim-input i18n" type="text" id="ob-loc" data-en-ph="e.g. Beijing, Remote, SF" data-zh-ph="比如：北京、远程、旧金山" placeholder="比如：北京、远程、旧金山" />
         </div>
-        <div class="claim-field">
-          <label class="claim-label i18n" data-en="What are you working on?" data-zh="你在做什么">你在做什么</label>
-          <input class="claim-input i18n" type="text" id="ob-busy" data-en-ph="e.g. building an AI hiring tool" data-zh-ph="比如：在做一个 AI 招聘工具" placeholder="比如：在做一个 AI 招聘工具" />
-        </div>
-        <div class="claim-field">
-          <label class="claim-label i18n" data-en="What are you looking for?" data-zh="想找什么">想找什么</label>
-          <input class="claim-input i18n" type="text" id="ob-find" data-en-ph="e.g. engineers who've shipped RAG" data-zh-ph="比如：做过 RAG 的工程师、玩 AI 出海的人" placeholder="比如：做过 RAG 的工程师、玩 AI 出海的人" />
-        </div>
-
-        <div class="claim-subhead i18n" data-en="2 · Your interests" data-zh="2 · 感兴趣的方向">2 · 感兴趣的方向</div>
-        <div class="ob-match-note i18n" id="ob-match-note" data-en="Your agent picked these from what you said — tap any others you want." data-zh="agent 根据你说的选了这些；还想加就点其他的。">agent 根据你说的选了这些；还想加就点其他的。</div>
-        <div class="interest-grid" id="ob-interests">
-          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Gigs" data-zh="接单招聘">接单招聘</button>
-          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Marketplace" data-zh="买卖交易">买卖交易</button>
-          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Venture" data-zh="创业投资">创业投资</button>
-          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Partnership" data-zh="合作合伙">合作合伙</button>
-          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Networking" data-zh="人脉引荐">人脉引荐</button>
-          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Signals" data-zh="信息跟踪">信息跟踪</button>
-          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Services" data-zh="工具服务">工具服务</button>
-          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Resources" data-zh="资源交换">资源交换</button>
-          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Research" data-zh="深度研究">深度研究</button>
-          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Community" data-zh="社群讨论">社群讨论</button>
-          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Group-buy" data-zh="一起拼单">一起拼单</button>
+        <div class="claim-subhead i18n" data-en="What you do" data-zh="你在做什么" style="margin-top:20px">你在做什么</div>
+        <div class="ob-match-note i18n" id="ob-doing-note" data-en="Picked from what you said — add or remove." data-zh="agent 从你说的里选的，可增删。">agent 从你说的里选的，可增删。</div>
+        <div class="interest-grid" id="ob-doing">
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Founder" data-zh="创业者">创业者</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Indie dev" data-zh="独立开发">独立开发</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Engineer" data-zh="工程师">工程师</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Product" data-zh="产品">产品</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Design" data-zh="设计">设计</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Growth" data-zh="运营/增长">运营/增长</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Investor" data-zh="投资人">投资人</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Research" data-zh="研究/学术">研究/学术</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Creator" data-zh="内容创作">内容创作</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Freelance" data-zh="自由职业">自由职业</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Student" data-zh="学生">学生</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Seller" data-zh="商家/卖家">商家/卖家</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="HR" data-zh="HR">HR</button>
         </div>
 
-        <div class="claim-tip i18n" data-en="Tip: after this, just tell your agent to change anything — e.g. “drop Resources from my interests.” It updates itself; no need to come back here." data-zh="小提示：以后想改，直接跟你的 agent 说一句就行，比如「把我关注的方向去掉资源交换」，它会自己更新，不用再回来填。">小提示：以后想改，直接跟你的 agent 说一句就行，比如「把我关注的方向去掉资源交换」，它会自己更新，不用再回来填。</div>
+        <div class="claim-subhead i18n" data-en="What you're looking for" data-zh="想找什么" style="margin-top:20px">想找什么</div>
+        <div class="ob-match-note i18n" id="ob-want-note" data-en="Picked from what you said — add or remove." data-zh="agent 从你说的里选的，可增删。">agent 从你说的里选的，可增删。</div>
+        <div class="interest-grid" id="ob-want">
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Hiring" data-zh="找人/招聘">找人/招聘</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Partners" data-zh="找合作/合伙">找合作/合伙</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Fundraising" data-zh="找投资/融资">找投资/融资</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Customers" data-zh="找客户/用户">找客户/用户</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Resources" data-zh="找资源">找资源</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Trade" data-zh="买卖交易">买卖交易</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Group buy" data-zh="拼单/分摊">拼单/分摊</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Tools/Services" data-zh="找工具/服务">找工具/服务</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Signals" data-zh="盯信息/情报">盯信息/情报</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Social" data-zh="找同好/交友">找同好/交友</button>
+          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Learning" data-zh="求教/学习">求教/学习</button>
+        </div>
+
+        <div class="claim-tip i18n" data-en="Tip: later, just tell your agent to change anything — e.g. “update what I'm looking for.” It updates itself; no need to come back here." data-zh="小提示：以后想改，直接跟你的 agent 说一句就行，比如「把我想找的改成 XX」，它会自己更新，不用再回来填。">小提示：以后想改，直接跟你的 agent 说一句就行，比如「把我想找的改成 XX」，它会自己更新，不用再回来填。</div>
         <a class="btn btn-dark claim-btn-full i18n" data-en="Confirm" data-zh="确定" onclick="claimGo(3)">确定</a>
         <span class="claim-back i18n" data-en="← Say it again" data-zh="← 重新说" onclick="obBackToSay()">← 重新说</span>
       </div>
@@ -1859,19 +1867,35 @@ function toggleInterest(元素){ 元素.classList.toggle('on'); }
 
 /* ===== AI 辅助 onboarding（纯前端启发式模拟；真上线时把 obParse 换成调 LLM）===== */
 /* 兴趣方向关键词表：命中即帮用户勾上对应方向 */
-var 兴趣关键词 = {
-  '接单招聘': ['招聘','招人','找人','找工程师','找开发','找程序员','找设计','找前端','找后端','前端','后端','工程师','设计师','程序员','岗位','求职','接单','招募','hire','hiring','recruit','job'],
-  '买卖交易': ['买','卖','出售','出让','转让','交易','二手','marketplace','sell','buy'],
-  '创业投资': ['创业','投资','融资','找钱','天使','项目','vc','angel','invest','fundrais','startup','venture'],
-  '合作合伙': ['合作','合伙','搭档','联创','联合创始','一起做','一起搞','一起做产品','组队','搭伙','co-found','cofound','partner'],
-  '人脉引荐': ['认识','人脉','引荐','介绍','结识','聊聊','connect','network','intro'],
-  '信息跟踪': ['盯','跟踪','监控','关注','信号','资讯','情报','动态','追踪','monitor','track','signal'],
-  '工具服务': ['工具','服务','外包','接活','做网站','代做','service','tool'],
-  '资源交换': ['资源','算力','gpu','h100','显卡','额度','quota','交换','共享','合租','带宽','compute','resource'],
-  '深度研究': ['研究','调研','报告','分析','行研','尽调','research','analysis'],
-  '社群讨论': ['社群','群','讨论','圈子','community','discuss'],
-  '一起拼单': ['拼','拼单','拼团','分摊','团购','凑','group buy','group-buy','split','share cost'],
-  '交友': ['交友','朋友','搭子','认识几个','聊得来','志同道合','同好','玩到一起','处对象','找对象','伴侣','约会','恋','social','date','dating','partner','buddy']
+/* 「你在做什么」职业/身份 关键词表 */
+var 职业关键词 = {
+  '创业者': ['创业','我是创始','做自己的','搞了个','自己的公司','自己的项目','在做一个','在搞一个','founder','startup','ceo'],
+  '独立开发': ['独立开发','独立','indie','个人开发','solo','一个人做','自己写','单干'],
+  '工程师': ['工程师','开发者','程序员','engineer','coder','写代码','后端','前端','全栈','算法','dev'],
+  '产品': ['产品经理','做产品','pm','product'],
+  '设计': ['设计','designer','ui','ux','视觉','平面'],
+  '运营/增长': ['运营','增长','市场','营销','growth','marketing','投放','获客','bd','销售'],
+  '投资人': ['投资人','vc','fa','天使','基金','投资机构','investor','看项目','早期项目','看早期','投项目'],
+  '研究/学术': ['研究','学术','博士','phd','科研','学者','researcher'],
+  '内容创作': ['内容','自媒体','创作','博主','写作','做视频','creator','writer','up主','公众号'],
+  '自由职业': ['自由职业','freelance','接单','外包','独立顾问'],
+  '学生': ['学生','在读','大学','研究生','本科','student','读研','读书'],
+  '商家/卖家': ['商家','卖家','电商','做生意','开店','seller','merchant','店主'],
+  'HR': ['hr','人力','猎头','做招聘的','招聘负责']
+};
+/* 「想找什么」需求 关键词表 */
+var 需求关键词 = {
+  '找人/招聘': ['找人','招聘','招人','找工程师','找开发','找设计','找前端','找后端','招募','hire','岗位','找兼职'],
+  '找合作/合伙': ['合作','合伙','搭档','联创','一起做','组队','搭伙','co-found','partner','创始人','同行','前辈','大牛','大佬'],
+  '找投资/融资': ['融资','找钱','找投资','天使','fundrais','找基金','拿投资'],
+  '找客户/用户': ['客户','用户','早期用户','获客','customer','找客','拉新','买家'],
+  '找资源': ['资源','算力','gpu','h100','显卡','额度','quota','渠道','合租','compute','带宽'],
+  '买卖交易': ['买','卖','出售','出让','转让','二手','交易'],
+  '拼单/分摊': ['拼','拼单','拼团','分摊','团购','凑'],
+  '找工具/服务': ['工具','服务','外包','找工具','找服务','代做'],
+  '盯信息/情报': ['盯','跟踪','监控','关注','信号','情报','资讯','动态','monitor','追踪','简报','日报'],
+  '找同好/交友': ['交友','朋友','搭子','聊得来','志同道合','同好','对象','伴侣','约会','认识几个','玩到一起','social'],
+  '求教/学习': ['求教','请教','学习','取经','想了解','想学','入门','交流经验']
 };
 var 城市列表 = ['北京','上海','深圳','杭州','广州','成都','南京','武汉','西安','苏州','重庆','厦门','远程','旧金山','硅谷','纽约','洛杉矶','西雅图','新加坡','香港','台北','东京','伦敦','柏林','bay area','sf','remote','nyc','la'];
 
@@ -1903,50 +1927,43 @@ function obAiFill(){
 }
 /* 点「自己填」：直接进 review（空表单、无预选），标题/说明改成手填口吻 */
 function obManual(){
-  ['ob-loc','ob-busy','ob-find'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
-  var nm=document.getElementById('ob-name'); if(nm) nm.value = '';
-  document.querySelectorAll('#ob-interests .interest-chip').forEach(function(c){ c.classList.remove('on'); });
+  ['ob-name','ob-loc'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
+  document.querySelectorAll('#ob-doing .interest-chip, #ob-want .interest-chip').forEach(function(c){ c.classList.remove('on'); });
   var 中文 = document.body.classList.contains('zh');
   var t = document.getElementById('ob-review-title'); if(t) t.textContent = 中文 ? '完善你的资料' : 'Set up your profile';
   var d = document.getElementById('ob-review-desc'); if(d) d.textContent = 中文 ? '填一下，帮你的 agent 更准地匹配。' : 'Fill this in so your agent matches you better.';
-  var n = document.getElementById('ob-match-note'); if(n) n.textContent = 中文 ? '点选你感兴趣的方向。' : 'Tap the directions you care about.';
+  ['ob-doing-note','ob-want-note'].forEach(function(id){ var el=document.getElementById(id); if(el) el.textContent = 中文 ? '点选符合你的。' : 'Tap what fits.'; });
   obShow('ob-review');
 }
-/* 启发式解析：把一段话拆成 网名/所在地/在忙/想找 + 勾选命中的兴趣方向 */
+/* 启发式解析：一段话 → 网名(留空)/所在地 + 选中「你在做什么」「想找什么」两组按钮 */
 function obParse(文本){
   var 低 = 文本.toLowerCase();
   var set = function(id,v){ var el=document.getElementById(id); if(el) el.value=(v||'').trim(); };
-  // 网名
+  // 网名（AI 一般抓不到，留空让用户补）
   var m = 文本.match(/我(?:是|叫|就是)\s*([^\s，,。、；;：:]{1,10})/) || 文本.match(/(?:i'?m|i am|my name is)\s+([A-Za-z][\w-]{0,15})/i);
-  set('ob-name', m ? m[1] : ''); // 网名 AI 一般抓不到，留空让用户补
+  set('ob-name', m ? m[1] : '');
   // 所在地
   var loc=''; for(var i=0;i<城市列表.length;i++){ if(低.indexOf(城市列表[i].toLowerCase())>=0){ loc=城市列表[i]; break; } }
   set('ob-loc', loc);
-  // 想找什么
-  var f = 文本.match(/(?:想找|在找|想认识|想连接|想对接|looking for|want to find)([^。.]+)/i);
-  set('ob-find', f ? f[1].replace(/^[：:，,、\s]+/,'') : '');
-  // 在忙什么：优先抓「(在)做/在忙/在搞/经营 …」，抓不到就用「想找」之前的主干
-  var b = 文本.match(/(?:在做|正在做|在忙|在搞|经营|做的是|building|working on)\s*([^，,。.；;]+)/i);
-  var busy='';
-  if(b){ busy = b[1]; }
-  else if(f){ busy = 文本.slice(0, 文本.indexOf(f[0])).replace(/我(?:是|叫|就是)\s*[^\s，,。、；;：:]{1,10}[，,、]?/,'').replace(new RegExp('(?:在|在的|来自)?\\s*'+(loc||'___')+'[，,、]?'),''); }
-  set('ob-busy', busy.replace(/^[，,、\s]+|[，,。.\s]+$/g,''));
-  // 兴趣：命中关键词即勾上
-  document.querySelectorAll('#ob-interests .interest-chip').forEach(function(chip){
-    var 名 = chip.getAttribute('data-zh');
-    var kws = 兴趣关键词[名] || [];
-    var 命中 = kws.some(function(k){ return 低.indexOf(k.toLowerCase())>=0; });
-    chip.classList.toggle('on', 命中);
-  });
-  // 匹配说明
-  var 数 = document.querySelectorAll('#ob-interests .interest-chip.on').length;
+  // 按关键词选中一组分类按钮，返回命中数
+  var 选中 = function(容器id, 表){
+    var 数=0;
+    document.querySelectorAll('#'+容器id+' .interest-chip').forEach(function(chip){
+      var kws = 表[chip.getAttribute('data-zh')] || [];
+      var 命中 = kws.some(function(k){ return 低.indexOf(k.toLowerCase())>=0; });
+      chip.classList.toggle('on', 命中); if(命中) 数++;
+    });
+    return 数;
+  };
   var 中文 = document.body.classList.contains('zh');
-  var note = document.getElementById('ob-match-note');
-  if(note){
-    note.textContent = 数>0
-      ? (中文 ? ('agent 根据你说的选了 '+数+' 个方向；还想加就点其他的。') : ('Your agent picked '+数+' from what you said — tap any others.'))
-      : (中文 ? '没匹配到明确方向——点选你感兴趣的就行。' : 'No clear match — just tap what you care about.');
-  }
+  var 说明 = function(id, 数){
+    var el=document.getElementById(id); if(!el) return;
+    el.textContent = 数>0
+      ? (中文 ? ('agent 选了 '+数+' 个，觉得不对就增删。') : ('Picked '+数+' — add or remove.'))
+      : (中文 ? '没匹配到，自己点选就行。' : 'No match — just tap what fits.');
+  };
+  说明('ob-doing-note', 选中('ob-doing', 职业关键词));
+  说明('ob-want-note',  选中('ob-want',  需求关键词));
 }
 function closeClaim(){
   document.getElementById('claim-overlay').classList.remove('open');
