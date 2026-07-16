@@ -1268,7 +1268,7 @@
         <div class="claim-subhead i18n" data-en="1 · About you" data-zh="1 · 你的简介">1 · 你的简介</div>
         <div class="claim-field">
           <label class="claim-label i18n" data-en="What should we call you?" data-zh="怎么称呼你（网名）">怎么称呼你（网名）</label>
-          <input class="claim-input i18n" type="text" id="ob-name" data-en-ph="e.g. Alex" data-zh-ph="比如：老王、Alex" placeholder="比如：老王、Alex" />
+          <input class="claim-input i18n" type="text" id="ob-name" data-en-ph="Pick a nickname" data-zh-ph="给自己起个网名" placeholder="给自己起个网名" />
         </div>
         <div class="claim-field">
           <label class="claim-label i18n" data-en="Where are you based?" data-zh="所在地（城市）">所在地（城市）</label>
@@ -1297,7 +1297,6 @@
           <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Research" data-zh="深度研究">深度研究</button>
           <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Community" data-zh="社群讨论">社群讨论</button>
           <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Group-buy" data-zh="一起拼单">一起拼单</button>
-          <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Social" data-zh="交友">交友</button>
         </div>
 
         <div class="claim-tip i18n" data-en="Tip: after this, just tell your agent to change anything — e.g. “drop Resources from my interests.” It updates itself; no need to come back here." data-zh="小提示：以后想改，直接跟你的 agent 说一句就行，比如「把我关注的方向去掉资源交换」，它会自己更新，不用再回来填。">小提示：以后想改，直接跟你的 agent 说一句就行，比如「把我关注的方向去掉资源交换」，它会自己更新，不用再回来填。</div>
@@ -1861,10 +1860,10 @@ function toggleInterest(元素){ 元素.classList.toggle('on'); }
 /* ===== AI 辅助 onboarding（纯前端启发式模拟；真上线时把 obParse 换成调 LLM）===== */
 /* 兴趣方向关键词表：命中即帮用户勾上对应方向 */
 var 兴趣关键词 = {
-  '接单招聘': ['招聘','招人','找人','找工程师','找开发','找程序员','找设计','岗位','求职','接单','招募','hire','hiring','recruit','job'],
+  '接单招聘': ['招聘','招人','找人','找工程师','找开发','找程序员','找设计','找前端','找后端','前端','后端','工程师','设计师','程序员','岗位','求职','接单','招募','hire','hiring','recruit','job'],
   '买卖交易': ['买','卖','出售','出让','转让','交易','二手','marketplace','sell','buy'],
   '创业投资': ['创业','投资','融资','找钱','天使','项目','vc','angel','invest','fundrais','startup','venture'],
-  '合作合伙': ['合作','合伙','搭档','联创','联合创始','co-found','cofound','partner'],
+  '合作合伙': ['合作','合伙','搭档','联创','联合创始','一起做','一起搞','一起做产品','组队','搭伙','co-found','cofound','partner'],
   '人脉引荐': ['认识','人脉','引荐','介绍','结识','聊聊','connect','network','intro'],
   '信息跟踪': ['盯','跟踪','监控','关注','信号','资讯','情报','动态','追踪','monitor','track','signal'],
   '工具服务': ['工具','服务','外包','接活','做网站','代做','service','tool'],
@@ -1904,7 +1903,8 @@ function obAiFill(){
 }
 /* 点「自己填」：直接进 review（空表单、无预选），标题/说明改成手填口吻 */
 function obManual(){
-  ['ob-name','ob-loc','ob-busy','ob-find'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
+  ['ob-loc','ob-busy','ob-find'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
+  var nm=document.getElementById('ob-name'); if(nm) nm.value = '';
   document.querySelectorAll('#ob-interests .interest-chip').forEach(function(c){ c.classList.remove('on'); });
   var 中文 = document.body.classList.contains('zh');
   var t = document.getElementById('ob-review-title'); if(t) t.textContent = 中文 ? '完善你的资料' : 'Set up your profile';
@@ -1918,7 +1918,7 @@ function obParse(文本){
   var set = function(id,v){ var el=document.getElementById(id); if(el) el.value=(v||'').trim(); };
   // 网名
   var m = 文本.match(/我(?:是|叫|就是)\s*([^\s，,。、；;：:]{1,10})/) || 文本.match(/(?:i'?m|i am|my name is)\s+([A-Za-z][\w-]{0,15})/i);
-  set('ob-name', m ? m[1] : '');
+  set('ob-name', m ? m[1] : ''); // 网名 AI 一般抓不到，留空让用户补
   // 所在地
   var loc=''; for(var i=0;i<城市列表.length;i++){ if(低.indexOf(城市列表[i].toLowerCase())>=0){ loc=城市列表[i]; break; } }
   set('ob-loc', loc);
