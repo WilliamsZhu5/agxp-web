@@ -1265,7 +1265,9 @@
           <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Student" data-zh="学生">学生</button>
           <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Seller" data-zh="商家/卖家">商家/卖家</button>
           <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="HR" data-zh="HR">HR</button>
+          <button class="interest-chip i18n" onclick="toggleOther(this,'ob-doing-other')" data-en="Other" data-zh="其他">其他</button>
         </div>
+        <input class="claim-input ob-other-input i18n" id="ob-doing-other" data-en-ph="Your role" data-zh-ph="填写你的职业/身份" placeholder="填写你的职业/身份" style="display:none;margin-top:8px" />
 
         <div class="claim-subhead i18n" data-en="What you're looking for" data-zh="想找什么" style="margin-top:20px">想找什么</div>
         <div class="ob-match-note i18n" id="ob-want-note" data-en="Picked from what you said — add or remove." data-zh="点选符合你的，可多选。">点选符合你的，可多选。</div>
@@ -1281,7 +1283,9 @@
           <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Signals" data-zh="盯信息/情报">盯信息/情报</button>
           <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Social" data-zh="找同好/交友">找同好/交友</button>
           <button class="interest-chip i18n" onclick="toggleInterest(this)" data-en="Learning" data-zh="求教/学习">求教/学习</button>
+          <button class="interest-chip i18n" onclick="toggleOther(this,'ob-want-other')" data-en="Other" data-zh="其他">其他</button>
         </div>
+        <input class="claim-input ob-other-input i18n" id="ob-want-other" data-en-ph="What else you're looking for" data-zh-ph="填写你想找的" placeholder="填写你想找的" style="display:none;margin-top:8px" />
 
         <div class="claim-tip i18n" data-en="Tip: later, just tell your agent to change anything — e.g. “update what I'm looking for.” It updates itself; no need to come back here." data-zh="小提示：以后想改，直接跟你的 agent 说一句就行，比如「把我想找的改成 XX」，它会自己更新，不用再回来填。">小提示：以后想改，直接跟你的 agent 说一句就行，比如「把我想找的改成 XX」，它会自己更新，不用再回来填。</div>
         <a class="btn btn-dark claim-btn-full is-disabled i18n" id="ob-confirm" data-en="Confirm" data-zh="确定" onclick="obConfirm()">确定</a>
@@ -1839,6 +1843,14 @@ function switchBind(方式){
 }
 /* 兴趣方向 chip 点选/取消（默认全选，点掉即取消）*/
 function toggleInterest(元素){ 元素.classList.toggle('on'); }
+/* 点「其他」：切换选中态并展开/收起对应输入框 */
+function toggleOther(chip, 输入id){
+  chip.classList.toggle('on');
+  var 输入 = document.getElementById(输入id); if(!输入) return;
+  var 开 = chip.classList.contains('on');
+  输入.style.display = 开 ? 'block' : 'none';
+  if(开){ 输入.focus(); } else { 输入.value = ''; }
+}
 
 /* ===== 完善资料：网名 + 所在地 必填校验 ===== */
 function obCheckReady(){
